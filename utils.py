@@ -4,6 +4,16 @@ import os
 import git
 # json module for parsing and manipulating JSON data
 import json
+import streamlit as st
+
+def center_aligned_image(image_path, caption):
+    st.markdown(
+        f'<div style="display: flex; justify-content: center;">'
+        f'<img src="{image_path}" alt="Image" style="width: 400px;"/>'
+        f'</div>',
+        unsafe_allow_html=True
+    )
+    st.write(caption)
 
 # Function to filter out code files based on their extensions
 def filter_code_files(file_paths):
@@ -58,17 +68,41 @@ def tokenize_and_chunk(content, max_tokens=1000):
 
     return chunks
 
+
 # Function to get a list of all the repositories of a GitHub user
 def get_github_repos(user_url, git_api):
-    # Extracting the username from the url
+    # Extracting the username from the URL
     username = user_url.split('/')[-1]
-    # Replacing 'username' in the git_api url with the actual username
+    
+    # Getting the GitHub API token from the environment variable
+    api_key = os.getenv('GIT_API')
+    
+    # Checking if the API token is available
+    if api_key is None:
+        return ValueError("GitHub API token not found. Set the GIT_API environment variable.")
+    
+    # Replacing 'username' in the git_api URL with the actual username
     git_api = git_api.replace('username', username)
-    # Sending a GET request to the GitHub API
-    response = requests.get(git_api)
+    # st.write(git_api)
+    # st.write(api_key)
+    
+    # Sending a GET request to the GitHub API with authentication
+    response = requests.get(git_api, headers={'Authorization': f'token {api_key}'})
+    
+    # Checking the rate limit status
+    # remaining_requests = int(response.headers.get('X-RateLimit-Remaining', 0))
+    # reset_time = int(response.headers.get('X-RateLimit-Reset', 0))
+    
+    # if remaining_requests == 0:
+    #     # Rate limit exceeded, wait until reset_time and then retry
+    #     wait_time = reset_time - time.time() + 10  # Add an additional buffer of 10 seconds
+    #     time.sleep(wait_time)
+    #     return get_github_repos(user_url)
+    
     # Parsing the JSON response
     repos = response.json()
     return repos
+
 
 # Function to clone a GitHub repository and preprocess its files
 def process_repository(repo_url):
