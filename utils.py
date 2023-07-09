@@ -6,14 +6,6 @@ import git
 import json
 import streamlit as st
 
-def center_aligned_image(image_path, caption):
-    st.markdown(
-        f'<div style="display: flex; justify-content: center;">'
-        f'<img src="{image_path}" alt="Image" style="width: 400px;"/>'
-        f'</div>',
-        unsafe_allow_html=True
-    )
-    st.write(caption)
 
 # Function to filter out code files based on their extensions
 def filter_code_files(file_paths):
