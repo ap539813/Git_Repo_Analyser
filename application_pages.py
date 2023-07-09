@@ -4,7 +4,7 @@ from important_variables import logo_image
 from langchain import PromptTemplate, LLMChain
 
 # Importing utility functions for working with GitHub and preprocessing code repositories
-from utils import get_github_repos, process_repository
+from utils import get_github_repos, process_repository, center_aligned_image
 from important_variables import git_api
 
 # Function for the main application logic
@@ -14,7 +14,6 @@ def main():
     if username != '':
         # Get the GitHub repositories of the user
         result = get_github_repos(username, git_api)
-        # st.write(result)
         try:
             # Extract the URLs of the repositories
             repo_links = [git_repo['html_url'] for git_repo in result]
@@ -113,7 +112,9 @@ def main():
 # Function for displaying the homepage
 def homepage():
     # Display the logo image
-    home_image = st.image(logo_image)
+    _, image_col, _ = st.columns([1, 6, 1])
+    home_image = image_col.image(logo_image, )
+    # home_image = center_aligned_image('', '')
 
     _, c2, _ = st.columns([2,1,2])
     c2.markdown('') 
