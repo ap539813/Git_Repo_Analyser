@@ -4,7 +4,7 @@ from important_variables import logo_image
 from langchain import PromptTemplate, LLMChain
 
 # Importing utility functions for working with GitHub and preprocessing code repositories
-from utils import get_github_repos, process_repository, center_aligned_image
+from utils import get_github_repos, process_repository
 from important_variables import git_api
 
 # Function for the main application logic
