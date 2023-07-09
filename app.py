@@ -5,7 +5,7 @@ import json
 import os
 
 # Import user-defined variables and page configurations
-from important_variables import model_name, style_css
+from important_variables import model_name, style_css, icon_logo
 from application_pages import main, homepage
 
 # Import the chat model
@@ -18,7 +18,7 @@ def local_css(file_name):
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Set the page layout of the Streamlit app to be wide
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_icon = icon_logo, )
 
 # Set the Altair visualization render options
 alt.renderers.set_embed_options(scaleFactor=2)
@@ -35,7 +35,7 @@ local_css(style_css)
 # os.environ["GIT_API"] = data['api_key']
 
 # Set the GPT model in the session state
-# st.session_state['GPT'] = ChatOpenAI(temperature=0.7, model=model_name)
+st.session_state['GPT'] = ChatOpenAI(temperature=0.7, model=model_name)
 
 # Set a default value for the home_page key if it doesn't exist in the session state
 if 'home_page' not in st.session_state:
