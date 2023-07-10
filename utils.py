@@ -6,7 +6,6 @@ import git
 import json
 import streamlit as st
 
-
 # Function to filter out code files based on their extensions
 def filter_code_files(file_paths):
     # List of code file extensions.
