@@ -48,6 +48,7 @@ def main():
                         a. Included Code Files
                         b. Code Summary
                         c. Space and Time Complexity
+                    5. Provide output in .md text format
 
                     Answer:
                     """
@@ -70,7 +71,6 @@ def main():
                     conversation_history += f'REPOSITORY NAME:\n{username}/{git_repo}\n\nSUMMARY:\n{code_summary}'
                     # Display the repository name and summary
                     repo_i = repo_col.expander(f'Description of: {git_repo}')
-                    repo_i.markdown(f'### REPOSITORY NAME: {username}/{git_repo}')
                     repo_i.markdown(f'{code_summary}', unsafe_allow_html = True)
 
                 # Template for comparing repositories and identifying the most complex one
@@ -82,9 +82,10 @@ def main():
 
                 Instructions:
                 Refer to the Conversation history. Give answer in two sections with following headings and required subheadings:
-                    1. Most Complex code Repository: 
-                    2. Explanation
-                Provide output in html format
+                    1. Most Complex code Repository (This will contain the name of the most complex repository)
+                    2. Table of complexities (This will contain a table containing the complexity ranking of all the analysed repositories)
+                    2. Explanation (This will contain the explanation)
+                Provide output in .md text format
                 """
 
                 # Create a PromptTemplate instance with the template and input variables
@@ -114,7 +115,6 @@ def homepage():
     # Display the logo image
     _, image_col, _ = st.columns([1, 6, 1])
     home_image = image_col.image(logo_image, )
-    # home_image = center_aligned_image('', '')
 
     _, c2, _ = st.columns([2,1,2])
     c2.markdown('') 
